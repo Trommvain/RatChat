@@ -14,7 +14,7 @@ import * as S from './styles';
 const Main: FC = () => {
     return (
         <S.Container>
-            Page: Main
+            Page: Chat
         </S.Container>
     );
 };
