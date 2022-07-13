@@ -1,20 +1,35 @@
 // Core
 import React, { FC } from 'react';
-// import { useUser } from '../../../bus/user';
+import { useTogglersRedux } from '../../../bus/client/togglers';
 
 // Bus
-// import {} from '../../../bus/'
+import { useUser } from '../../../bus/user';
 
 // Components
-import { ErrorBoundary } from '../../components';
+import { ErrorBoundary, InputWindow } from '../../components';
 
 // Styles
 import * as S from './styles';
 
 const Main: FC = () => {
+    const { user } = useUser();
+    const { resetTogglersToInitial } = useTogglersRedux();
+
+    const logout = () => {
+        localStorage.clear();
+        resetTogglersToInitial();
+    };
+
     return (
         <S.Container>
-            Page: Chat
+            <header>
+                <p className = 'welcome'>Welcome, { user?.username }!</p>
+                <button
+                    className = 'btn-logout'
+                    onClick = { logout }>LOGOUT
+                </button>
+            </header>
+            <InputWindow />
         </S.Container>
     );
 };

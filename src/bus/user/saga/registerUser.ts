@@ -31,7 +31,7 @@ const registerUser = (callAction: ReturnType<typeof registerUserAction>) => make
     },
     succes: function* (result) {
         yield localStorage.setItem('userId', result._id);
-        yield put(userActions.registerUser(result));
+        yield put(userActions.setUser(result));
         yield put(togglerCreatorAction({ type: 'isLoggedIn', value: true }));
     },
 });
