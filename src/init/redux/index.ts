@@ -5,6 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import togglers from '../../bus/client/togglers';
 import user from '../../bus/user/slice';
 import messages from '../../bus/messages/slice';
+import keyboard from '../../bus/keyboard/slice';
 
 // Middleware
 import { middleware, sagaMiddleware } from './middleware';
@@ -17,6 +18,7 @@ export const store = configureStore({
         togglers,
         user,
         messages,
+        keyboard,
     },
     middleware,
     devTools: process.env.NODE_ENV !== 'production',

@@ -47,4 +47,28 @@ export const Container = styled.section`
         }
     }
 
+    .btn-show-keyboard {
+        align-self: flex-end;
+        height: fit-content;
+        width: fit-content;
+        font-size: 18px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border-color: transparent;
+        background-color: blue;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            background-color: white;
+            color: black;
+            transition: 0.5s;
+        }
+
+        &:active {
+            filter: invert();
+            transition: none;
+        }
+    }
+
 `;
