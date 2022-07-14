@@ -13,9 +13,13 @@ export const useKeyboard = () => {
     const keyboardSymbol = useSelector((state) => state.keyboard);
 
     const getKeyboardSymbol = (symbol: KeyboardSymbol) => void dispatch(keyboardActions.setKeyboard(symbol));
+    const setClearKeyboard = () => void dispatch(keyboardActions.clearKeyboard(''));
+    const removeSymbol = () => void dispatch(keyboardActions.removeSymbol(''));
 
     return {
         keyboardSymbol,
         getKeyboardSymbol,
+        setClearKeyboard,
+        removeSymbol,
     };
 };

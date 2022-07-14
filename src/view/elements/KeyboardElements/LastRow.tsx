@@ -2,6 +2,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+// Bus
+import { useKeyboard } from '../../../bus/keyboard';
+
 // Types
 import { RowTypes } from '../../components';
 
@@ -13,8 +16,24 @@ const LastRowContainer = styled.div`
 `;
 
 export const LastRow: FC<{ lastRow: RowTypes }> = ({ lastRow }) => {
+    const { getKeyboardSymbol } = useKeyboard();
+
+    const buttonClickHandler = (event: React.MouseEvent<HTMLElement>) => {
+        const key = event.target as HTMLElement;
+        if (key.innerText === 'Space') {
+            getKeyboardSymbol(' ');
+        } else if (key.innerText === 'En' || key.innerText === 'Enter') {
+            getKeyboardSymbol('');
+        } else {
+            getKeyboardSymbol(key.innerText);
+        }
+    };
+
     const spans = lastRow.map((item, index) => (
-        <span key = { index }>{ item }</span>
+        <span
+            key = { index }
+            onClick = { (event) => buttonClickHandler(event) }>{ item }
+        </span>
     ));
 
     return (

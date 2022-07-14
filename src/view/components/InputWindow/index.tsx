@@ -1,5 +1,5 @@
 // Core
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 // Bus
 import { useMessages } from '../../../bus/messages';
@@ -11,19 +11,28 @@ import * as S from './styles';
 // Types
 import { Message } from '../../../bus/messages/types';
 import { MessageItem } from '../MessageItem';
+import { useKeyboard } from '../../../bus/keyboard';
 
 
 export const InputWindow: FC = () => {
     const { user } = useUser();
     const { sendMessage } = useMessages(true);
     const [ userMessage, setUserMessage ] = useState('');
+    const { keyboardSymbol, setClearKeyboard } = useKeyboard();
 
     const messagesArray = useMessages().messages;
 
     const sendMessageHandler = () => {
         sendMessage({ username: (user?.username) as string, text: userMessage });
         setUserMessage(''); //clearing input field after sending a message
+        setClearKeyboard();
     };
+
+    useEffect(() => {
+        if (keyboardSymbol) {
+            setUserMessage(keyboardSymbol);
+        }
+    }, [ keyboardSymbol ]);
 
     const messages = messagesArray?.map((messages: Message, index: number) => (
         <MessageItem
