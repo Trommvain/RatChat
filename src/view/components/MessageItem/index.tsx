@@ -13,34 +13,30 @@ import * as S from './styles';
 // Types
 import { Message } from '../../../bus/messages/types';
 
-
-export const MessageItem: FC<Message> = (messages: Message) => {
+export const MessageItem: FC<Message> = (message: Message) => {
     const { user } = useUser();
     const { deleteMessage, editMessage } = useMessages();
     const [ isEditing, setIsEditing ] = useState(false);
     const [ value, setValue ] = useState('');
-
-    let editToggler = false;
-    user?.username === messages.username ? editToggler = true : editToggler = false;
 
     const deleteMessageHandler = () => {
         if (confirm('Delete this message?')) {
             if (isEditing) {
                 setIsEditing(false);
             }
-            deleteMessage(messages._id);
+            deleteMessage(message._id);
         }
     };
 
     const editMessageHandler = () => {
         setIsEditing(true);
-        setValue(messages.text);
+        setValue(message.text);
     };
 
     const submitChanges = () => {
         const editedMessage = {
             text: value,
-            id:   messages._id,
+            id:   message._id,
         };
         editMessage(editedMessage);
         setIsEditing(false);
@@ -61,41 +57,41 @@ export const MessageItem: FC<Message> = (messages: Message) => {
     };
 
     return (
-        <S.Container align = { user?.username === messages?.username }>
-            <div className = 'name-block'>
-                { editToggler && (
-                    <div>
-                        <span onClick = { deleteMessageHandler }>Delete</span>
-                        <span onClick = { editMessageHandler }>Edit</span>
-                    </div>
-                )}
-                <p className = 'name'>{ messages.username }</p>
-            </div>
+        <S.Container align = { user?.username === message?.username }>
+            <S.NameBlock>
+                {
+                    user?.username === message.username && (
+                        <div>
+                            <S.EditBlockButton onClick = { deleteMessageHandler }>Delete</S.EditBlockButton>
+                            <S.EditBlockButton onClick = { editMessageHandler }>Edit</S.EditBlockButton>
+                        </div>
+                    )
+                }
+                <S.UserName align = { user?.username === message?.username }>{ message.username }</S.UserName>
+            </S.NameBlock>
             { isEditing ? (
                 <div>
-                    <input
+                    <S.EditMessageField
                         autoFocus
-                        className = 'edit-message-field'
                         defaultValue = { value }
                         type = 'text'
                         onChange = { onChangeInput }
                         onKeyUp = { (event) => enterPressHandler(event) }
                     />
-                    <button
-                        className = 'submit-changes-btn'
+                    <S.SubmitChangesBtn
                         onClick = { submitChanges }>UPDATE
-                    </button>
-                    <button
+                    </S.SubmitChangesBtn>
+                    <S.DeclineChangesBtn
                         className = 'decline-changes-btn'
                         onClick = { cancelEditing }>CANCEL
-                    </button>
+                    </S.DeclineChangesBtn>
                 </div>
 
-            ) : <p className = 'text'>{ messages.text }</p>}
-            <div className = 'date'>
-                <p>{ messages.createdAt !== messages.updatedAt ? 'EDITED' : null }</p>
-                <p>{ moment(messages.createdAt).format('HH:mm:ss') }</p>
-            </div>
+            ) : <S.MessageText>{ message.text }</S.MessageText>}
+            <S.MessageDate>
+                <p>{ message.createdAt !== message.updatedAt ? 'EDITED' : null }</p>
+                <p>{ moment(message.createdAt).format('HH:mm:ss') }</p>
+            </S.MessageDate>
         </S.Container>
     );
 };

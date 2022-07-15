@@ -11,3 +11,4 @@ export type UserState = User | null
 
 // Contracts
 export type BaseContact<T = any> = CaseReducer<UserState, PayloadAction<T>>
+export type RemoveUser = BaseContact<void>

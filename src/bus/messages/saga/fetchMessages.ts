@@ -8,17 +8,18 @@ import { messagesActions, sliceName } from '../slice';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
+
+// Constants
 import { API_URL } from '../../../init/constants';
 
 // Action
-export const fetchMessagesAction = createAction<number>(`${sliceName}/FETCH_MESSAGES_ASYNC`);
+export const fetchMessagesAction = createAction(`${sliceName}/FETCH_MESSAGES_ASYNC`);
 
 // Types
 import { Messages } from '../types';
 
 // Saga
-const fetchMessages = (callAction: ReturnType<typeof fetchMessagesAction>) => makeRequest<Messages>({
-    callAction,
+const fetchMessages = () => makeRequest<Messages>({
     fetchOptions: {
         successStatusCode: 200,
         fetch:             () => fetch(`${API_URL}/messages`, {

@@ -8,6 +8,8 @@ import { messagesActions, sliceName } from '../slice';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
+
+// Constants
 import { API_URL } from '../../../init/constants';
 
 // Action
@@ -18,7 +20,6 @@ import { Message, userMessage } from '../types';
 
 // Saga
 const sendMessage = (callAction: ReturnType<typeof sendMessageAction>) => makeRequest<Message>({
-    callAction,
     fetchOptions: {
         successStatusCode: 201,
         fetch:             () => fetch(`${API_URL}/messages`, {

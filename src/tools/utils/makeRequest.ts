@@ -80,7 +80,7 @@ export function* makeRequest<SuccessData, ErrorData = {}>(options: OptionsType<S
             yield error(errorData);
         }
 
-        if (callAction && !errorData) {
+        if (callAction) {
             yield put(callAction);
         }
 

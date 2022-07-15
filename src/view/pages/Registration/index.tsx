@@ -1,16 +1,17 @@
 // Core
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { v4 } from 'uuid';
 
 // Components
 import { ErrorBoundary } from '../../components';
 import { Spinner } from '../../elements';
 
-// Styles
-import { Container } from './styles';
+// Bus
 import { useUser } from '../../../bus/user';
 import { useTogglersRedux } from '../../../bus/client/togglers';
-import { USER_ID } from '../../../init';
+
+// Styles
+import * as S from './styles';
 
 //Types
 export type FormValueType = {
@@ -28,24 +29,17 @@ const Registration: FC = () => {
 
     const { togglersRedux:{ isAuthLoading }, setTogglerAction } = useTogglersRedux();
 
-    const user = localStorage.getItem(USER_ID);
-    useEffect(() => {
-        if (user) {
-            setTogglerAction({ type: 'isAuthLoading', value: true });
-        }
-    }, []);
-
     return (
-        <Container>
+        <S.Container>
             { isAuthLoading && <Spinner/> }
-            <form
+            <S.RegistrationForm
                 onSubmit = { (event) => {
                     setTogglerAction({ type: 'isAuthLoading', value: true });
                     event.preventDefault();
                     registerUser(nickName);
                 }
                 }>
-                <label className = 'form-item'>Enter your ratname:</label>
+                <S.UserName>Enter your ratname:</S.UserName>
                 <input
                     required
                     name = 'text'
@@ -54,12 +48,11 @@ const Registration: FC = () => {
                     value = { nickName }
                     onChange = { (event) => setNickName(event.target.value) }
                 />
-                <button
-                    className = 'submit-button'
+                <S.SubmitBtn
                     type = 'submit'>DROP INTO HOLE
-                </button>
-            </form>
-        </Container>
+                </S.SubmitBtn>
+            </S.RegistrationForm>
+        </S.Container>
     );
 };
 

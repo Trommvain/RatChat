@@ -5,10 +5,12 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // Slice
 import { userActions, sliceName } from '../slice';
-import { togglerCreatorAction } from '../../client/togglers';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
+import { togglerCreatorAction } from '../../client/togglers';
+
+// Constants
 import { API_URL } from '../../../init/constants';
 
 // Types
@@ -19,6 +21,7 @@ export const refreshUserAction = createAction<string>(`${sliceName}/REFRESH_USER
 
 // Saga
 const refreshUser = (callAction: ReturnType<typeof refreshUserAction>) => makeRequest<UserTypes.User>({
+    togglerType:  'isAuthLoading',
     fetchOptions: {
         successStatusCode: 200,
         fetch:             () => fetch(`${API_URL}/users/refresh/${callAction.payload}`, {

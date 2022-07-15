@@ -16,7 +16,7 @@ export const useMessagesSaga = () => {
     const dispatch = useDispatch();
 
     return {
-        fetchMessages: () => void dispatch(fetchMessagesAction(1)),
+        fetchMessages: () => void dispatch(fetchMessagesAction()),
         sendMessage:   (message: types.userMessage) => dispatch(sendMessageAction(message)),
         deleteMessage: (id: string) => dispatch(deleteMessageAction(id)),
         editMessage:   (message: types.editedMessage) => dispatch(editMessageAction(message)),

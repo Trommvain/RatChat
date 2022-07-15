@@ -8,6 +8,8 @@ import { messagesActions, sliceName } from '../slice';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
+
+// Constants
 import { API_URL } from '../../../init/constants';
 
 // Types
@@ -16,10 +18,8 @@ import { Message, editedMessage } from '../types';
 // Action
 export const editMessageAction = createAction<editedMessage>(`${sliceName}/EDIT_MESSAGE_ASYNC`);
 
-
 // Saga
 const editMessage = (callAction: ReturnType<typeof editMessageAction>) => makeRequest<Message>({
-    callAction,
     fetchOptions: {
         successStatusCode: 200,
         fetch:             () => fetch(`${API_URL}/messages/${callAction.payload.id}`, {

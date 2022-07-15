@@ -1,6 +1,11 @@
 // Core
 import React from 'react';
-import { FirstRow, SecondRow, FourthRow, LastRow, ThirdRow } from '../../elements';
+
+// Bus
+import { useKeyboard } from '../../../bus/client/keyboard';
+
+// Tools
+import { useSelector } from '../../../tools/hooks';
 
 // Styles
 import * as S from './styles';
@@ -15,13 +20,78 @@ const fourthRow: RowTypes = [ 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Backs
 const lastRow: RowTypes = [ ',', 'En', 'Space', '.', 'Enter' ];
 
 export const Keyboard = () => {
+    const { getKeyboardSymbol, removeSymbol } = useKeyboard();
+    const messageText = useSelector((state) => state.keyboard);
+
+    const buttonClickHandler = (event: React.MouseEvent<HTMLElement>) => {
+        const key = event.target as HTMLElement;
+        if (key.innerText === 'Shift') {
+            getKeyboardSymbol('');
+        } else if (key.innerText === 'Backspace') {
+            if (messageText) {
+                removeSymbol(messageText);
+            }
+        } else if (key.innerText === 'Space') {
+            getKeyboardSymbol(' ');
+        } else if (key.innerText === 'En' || key.innerText === 'Enter') {
+            getKeyboardSymbol('');
+        } else {
+            getKeyboardSymbol(key.innerText);
+        }
+    };
+
     return (
         <S.Container>
-            <FirstRow firstRow = { firstRow } />
-            <SecondRow secondRow = { secondRow } />
-            <ThirdRow thirdRow = { thirdRow } />
-            <FourthRow fourthRow = { fourthRow } />
-            <LastRow lastRow = { lastRow } />
+            <S.FirstSecondRow>
+                {
+                    firstRow.map((item, index) => (
+                        <S.Key
+                            key = { index }
+                            onClick = { (event) => buttonClickHandler(event) }>{ item }
+                        </S.Key>
+                    ))
+                }
+            </S.FirstSecondRow>
+            <S.FirstSecondRow>
+                {
+                    secondRow.map((item, index) => (
+                        <S.Key
+                            key = { index }
+                            onClick = { (event) => buttonClickHandler(event) }>{ item }
+                        </S.Key>
+                    ))
+                }
+            </S.FirstSecondRow>
+            <S.ThirdRow>
+                {
+                    thirdRow.map((item, index) => (
+                        <S.Key
+                            key = { index }
+                            onClick = { (event) => buttonClickHandler(event) }>{ item }
+                        </S.Key>
+                    ))
+                }
+            </S.ThirdRow>
+            <S.FourthRow>
+                {
+                    fourthRow.map((item, index) => (
+                        <S.Key
+                            key = { index }
+                            onClick = { (event) => buttonClickHandler(event) }>{ item }
+                        </S.Key>
+                    ))
+                }
+            </S.FourthRow>
+            <S.LastRow>
+                {
+                    lastRow.map((item, index) => (
+                        <S.Key
+                            key = { index }
+                            onClick = { (event) => buttonClickHandler(event) }>{ item }
+                        </S.Key>
+                    ))
+                }
+            </S.LastRow>
         </S.Container>
     );
 };

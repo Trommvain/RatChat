@@ -14,5 +14,9 @@ export const clearKeyboard: types.BaseContact<types.KeyboardSymbol> = (state) =>
 };
 
 export const removeSymbol: types.BaseContact<types.KeyboardSymbol> = (state) => {
-    return state?.substring(0, state.length);
+    if (state?.length === 1) {
+        return ' ';
+    }
+
+    return state?.substring(0, state.length - 1);
 };

@@ -2,6 +2,8 @@
 import { useDispatch } from 'react-redux';
 import { SagaIterator } from '@redux-saga/core';
 import { all, call } from 'redux-saga/effects';
+
+// Constants
 import { USER_ID } from '../../../init';
 
 // Watchers & Actions

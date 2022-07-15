@@ -9,7 +9,6 @@ export type Message = {
     createdAt: string,
     updatedAt: string,
     isEdited: boolean,
-    children?: React.ReactNode,
 }
 
 export type userMessage = {

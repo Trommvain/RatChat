@@ -1,3 +1,3 @@
 export * from './ErrorBoundary';
-export * from './InputWindow';
+export * from './ChatWindow';
 export * from './Keyboard';

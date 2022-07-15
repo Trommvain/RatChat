@@ -8,6 +8,8 @@ import { messagesActions, sliceName } from '../slice';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
+
+// Constants
 import { API_URL } from '../../../init/constants';
 
 // Types
@@ -16,10 +18,8 @@ import { Message } from '../types';
 // Action
 export const deleteMessageAction = createAction<string>(`${sliceName}/DELETE_MESSAGE_ASYNC`);
 
-
 // Saga
 const deleteMessage = (callAction: ReturnType<typeof deleteMessageAction>) => makeRequest<Message>({
-    callAction,
     fetchOptions: {
         successStatusCode: 200,
         fetch:             () => fetch(`${API_URL}/messages/${callAction.payload}`, {

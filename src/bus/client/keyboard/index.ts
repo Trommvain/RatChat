@@ -2,7 +2,9 @@
 import { useDispatch } from 'react-redux';
 
 // Tools
-import { useSelector } from '../../tools/hooks';
+import { useSelector } from '../../../tools/hooks';
+
+// Slice
 import { keyboardActions } from './slice';
 
 // Types
@@ -14,7 +16,7 @@ export const useKeyboard = () => {
 
     const getKeyboardSymbol = (symbol: KeyboardSymbol) => void dispatch(keyboardActions.setKeyboard(symbol));
     const setClearKeyboard = () => void dispatch(keyboardActions.clearKeyboard(''));
-    const removeSymbol = () => void dispatch(keyboardActions.removeSymbol(''));
+    const removeSymbol = (symbol: KeyboardSymbol) => void dispatch(keyboardActions.removeSymbol(symbol));
 
     return {
         keyboardSymbol,
