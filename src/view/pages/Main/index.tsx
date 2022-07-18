@@ -18,6 +18,10 @@ const Main: FC = () => {
         setKeyboardToggler(!keyboardToggler);
     };
 
+    window.addEventListener('keydown', (event) => {
+        console.log(event.key);
+    });
+
     return (
         <S.Container>
             <S.Header>

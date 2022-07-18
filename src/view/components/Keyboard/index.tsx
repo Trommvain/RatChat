@@ -3,6 +3,7 @@ import React from 'react';
 
 // Bus
 import { useKeyboard } from '../../../bus/client/keyboard';
+import { useTogglersRedux } from '../../../bus/client/togglers';
 
 // Tools
 import { useSelector } from '../../../tools/hooks';
@@ -22,11 +23,14 @@ const lastRow: RowTypes = [ ',', 'En', 'Space', '.', 'Enter' ];
 export const Keyboard = () => {
     const { getKeyboardSymbol, removeSymbol } = useKeyboard();
     const messageText = useSelector((state) => state.keyboard);
+    const { togglersRedux: { isShiftPressed }, setTogglerAction } = useTogglersRedux();
+
 
     const buttonClickHandler = (event: React.MouseEvent<HTMLElement>) => {
         const key = event.target as HTMLElement;
         if (key.innerText === 'Shift') {
             getKeyboardSymbol('');
+            setTogglerAction({ type: 'isShiftPressed', value: !isShiftPressed });
         } else if (key.innerText === 'Backspace') {
             if (messageText) {
                 removeSymbol(messageText);
@@ -57,7 +61,9 @@ export const Keyboard = () => {
                     secondRow.map((item, index) => (
                         <S.Key
                             key = { index }
-                            onClick = { (event) => buttonClickHandler(event) }>{ item }
+                            onClick = { (event) => buttonClickHandler(event) }>{
+                                isShiftPressed ? item.toUpperCase() : item
+                            }
                         </S.Key>
                     ))
                 }
@@ -67,7 +73,9 @@ export const Keyboard = () => {
                     thirdRow.map((item, index) => (
                         <S.Key
                             key = { index }
-                            onClick = { (event) => buttonClickHandler(event) }>{ item }
+                            onClick = { (event) => buttonClickHandler(event) }>{
+                                isShiftPressed ? item.toUpperCase() : item
+                            }
                         </S.Key>
                     ))
                 }
@@ -77,7 +85,9 @@ export const Keyboard = () => {
                     fourthRow.map((item, index) => (
                         <S.Key
                             key = { index }
-                            onClick = { (event) => buttonClickHandler(event) }>{ item }
+                            onClick = { (event) => buttonClickHandler(event) }>{
+                                isShiftPressed && item !== 'Shift' && item !== 'Backspace' ? item.toUpperCase() : item
+                            }
                         </S.Key>
                     ))
                 }
