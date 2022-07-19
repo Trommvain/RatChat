@@ -22,6 +22,10 @@ export const Header = styled.header`
 export const WelcomeSign = styled.p`
     font-size: 24px;
     color: white;
+
+    @media only screen and (max-width: 400px) {
+        font-size: 18px;
+    }
 `;
 
 export const LogoutBtn = styled.button`

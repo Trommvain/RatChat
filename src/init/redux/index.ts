@@ -6,6 +6,7 @@ import togglers from '../../bus/client/togglers';
 import user from '../../bus/user/slice';
 import messages from '../../bus/messages/slice';
 import keyboard from '../../bus/client/keyboard/slice';
+import keyCode from '../../bus/keyCode/slice';
 
 // Middleware
 import { middleware, sagaMiddleware } from './middleware';
@@ -19,6 +20,7 @@ export const store = configureStore({
         user,
         messages,
         keyboard,
+        keyCode,
     },
     middleware,
     devTools: process.env.NODE_ENV !== 'production',

@@ -7,7 +7,7 @@ export const Container = styled.section`
     border-radius: 4px;
     max-width: 400px;
     max-height: 700px;
-    width: 100%;
+    width: 90%;
     height: 100%;
     display: grid;
     grid-template-rows: 92% 8%;

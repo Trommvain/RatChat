@@ -7,6 +7,11 @@ export const Container = styled.div`
     max-width: 500px;
     min-width: 400px;
     background-color: transparent;
+
+    @media only screen and (max-width: 400px) {
+        width: 90vw;
+        min-width: 50vw;
+    }
 `;
 
 export const FirstSecondRow = styled.div`

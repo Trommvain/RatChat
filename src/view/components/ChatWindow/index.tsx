@@ -33,7 +33,7 @@ export const ChatWindow: FC = () => {
 
     useEffect(() => {
         if (keyboardSymbol) {
-            setUserMessage(keyboardSymbol);
+            setUserMessage(keyboardSymbol.text);
         }
     }, [ keyboardSymbol ]);
 

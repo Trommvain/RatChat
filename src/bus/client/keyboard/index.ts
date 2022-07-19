@@ -16,7 +16,7 @@ export const useKeyboard = () => {
 
     const getKeyboardSymbol = (symbol: KeyboardSymbol) => void dispatch(keyboardActions.setKeyboard(symbol));
     const setClearKeyboard = () => void dispatch(keyboardActions.clearKeyboard(''));
-    const removeSymbol = (symbol: KeyboardSymbol) => void dispatch(keyboardActions.removeSymbol(symbol));
+    const removeSymbol = () => void dispatch(keyboardActions.removeSymbol());
 
     return {
         keyboardSymbol,

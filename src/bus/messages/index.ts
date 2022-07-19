@@ -12,7 +12,7 @@ export const useMessages = (isFetching?: boolean) => {
     const messages = useSelector((state) => state.messages);
 
     useEffect(() => {
-        isFetching && fetchMessages();
+        !messages && isFetching && fetchMessages();
     }, []);
 
     return {

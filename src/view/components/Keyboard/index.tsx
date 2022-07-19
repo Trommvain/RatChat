@@ -4,6 +4,9 @@ import React from 'react';
 // Bus
 import { useKeyboard } from '../../../bus/client/keyboard';
 import { useTogglersRedux } from '../../../bus/client/togglers';
+import { useKeyCode } from '../../../bus/keyCode';
+import { useMessages } from '../../../bus/messages';
+import { useUser } from '../../../bus/user';
 
 // Tools
 import { useSelector } from '../../../tools/hooks';
@@ -21,10 +24,12 @@ const fourthRow: RowTypes = [ 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Backs
 const lastRow: RowTypes = [ ',', 'En', 'Space', '.', 'Enter' ];
 
 export const Keyboard = () => {
-    const { getKeyboardSymbol, removeSymbol } = useKeyboard();
+    const { getKeyboardSymbol, removeSymbol, setClearKeyboard } = useKeyboard();
     const messageText = useSelector((state) => state.keyboard);
     const { togglersRedux: { isShiftPressed }, setTogglerAction } = useTogglersRedux();
-
+    const { user } = useUser();
+    const { sendMessage } = useMessages(true);
+    const { keyCode } = useKeyCode();
 
     const buttonClickHandler = (event: React.MouseEvent<HTMLElement>) => {
         const key = event.target as HTMLElement;
@@ -33,12 +38,18 @@ export const Keyboard = () => {
             setTogglerAction({ type: 'isShiftPressed', value: !isShiftPressed });
         } else if (key.innerText === 'Backspace') {
             if (messageText) {
-                removeSymbol(messageText);
+                removeSymbol();
             }
         } else if (key.innerText === 'Space') {
             getKeyboardSymbol(' ');
-        } else if (key.innerText === 'En' || key.innerText === 'Enter') {
+        } else if (key.innerText === 'En') {
             getKeyboardSymbol('');
+        } else if (key.innerText === 'Enter') {
+            getKeyboardSymbol('');
+            if (user && messageText) {
+                sendMessage({ username: user.username, text: messageText.text });
+                setClearKeyboard();
+            }
         } else {
             getKeyboardSymbol(key.innerText);
         }

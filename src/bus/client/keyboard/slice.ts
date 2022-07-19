@@ -7,7 +7,9 @@ import * as types from './types';
 // Reducers
 import * as reducers from './reducers';
 
-const initialState = null;
+const initialState = {
+    text: '',
+};
 
 export const keyboardSlice = createSlice<types.KeyboardSymbolState, typeof reducers>({
     name: 'keyboard',
